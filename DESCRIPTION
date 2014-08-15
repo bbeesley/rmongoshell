@@ -1,9 +1,11 @@
 Package: rmongoshell
 Type: Package
-Title: What the package does (short line)
-Version: 1.0
+Title: R Wrapper for Mongo Shell
+Version: 0.0.1
 Date: 2014-08-13
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Author: Bill Beesley
+Maintainer: Bill Beesley <bill@billbeesley.com>
+Depends: RJSONIO, parallel
+Description: Thin node.js wrapper to enable mongodb queries from R with minimal overhead.
+License: Apache License, Version 2.0
+NeedsCompilation: yes

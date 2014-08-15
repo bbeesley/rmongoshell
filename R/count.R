@@ -1,7 +1,7 @@
 dbCount <- function(host, db, collection, query, mem = 2) {
   memSize = mem * 1024
   commandBits = c('node --max-old-space-size=', as.character(memSize),
-                  ' inst/count.js',
+                  ' $R_PACKAGE_DIR/node/count.js',
                   ' --host ', host,
                   ' --db ', db,
                   ' --collection ', collection,

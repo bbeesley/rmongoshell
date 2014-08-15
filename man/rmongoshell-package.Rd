@@ -3,12 +3,10 @@
 \alias{rmongoshell}
 \docType{package}
 \title{
-What the package does (short line)
-~~ package title ~~
+mongo shell R connection
 }
 \description{
-More about what it does (maybe more than one line)
-~~ A concise (1-5 lines) description of the package ~~
+A lightweight node.js based tool to query mongodb databases with minimal overhead. Less memory intensive than the more complex alternatives (I'm looking at you Java).
 }
 \details{
 \tabular{ll}{
@@ -16,25 +14,20 @@ Package: \tab rmongoshell\cr
 Type: \tab Package\cr
 Version: \tab 1.0\cr
 Date: \tab 2014-08-13\cr
-License: \tab What license is it under?\cr
+License: \tab Apache License, Version 2.0\cr
 }
-~~ An overview of how to use the package, including the most important functions ~~
+Make sure node is in your path, blah blah blah
 }
 \author{
-Who wrote it
-
-Maintainer: Who to complain to <yourfault@somewhere.net>
-~~ The author and/or maintainer of the package ~~
+Bill Beesley <bill@billbeesley.com>
 }
 \references{
-~~ Literature or other references for background information ~~
+\url{http://mongodb.github.io/node-mongodb-native/}
 }
-~~ Optionally other standard keywords, one per line, from file KEYWORDS in the R documentation directory ~~
 \keyword{ package }
-\seealso{
-~~ Optional links to other man pages, e.g. ~~
-~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
-}
+\keyword{ database }
 \examples{
-~~ simple examples of the most important functions ~~
+\dontrun{
+plot(x)
+}
 }

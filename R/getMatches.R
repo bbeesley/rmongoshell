@@ -1,7 +1,7 @@
 dbGetMatches <- function(host, db, collection, query, fields, mem = 2) {
   memSize = mem * 1024
   commandBits = c('node --max-old-space-size=', as.character(memSize),
-                  ' inst/getMatches.js',
+                  ' $R_PACKAGE_DIR/node/getMatches.js',
                   ' --host ', host,
                   ' --db ', db,
                   ' --collection ', collection,
