@@ -5,10 +5,6 @@ var MongoClient = require('mongodb').MongoClient,
     response,
     exceptions = [],
     argv = require('yargs').usage('Usage: $0 --host [string] --db [string] --collection [string] --query [string]').demand(['host', 'db', 'collection', 'query']).argv;
-// console.log('Got ' + argv.host + ' for host');
-// console.log('Got ' + argv.db + ' for db');
-// console.log('Got ' + argv.collection + ' for collection');
-// console.log('Got ' + argv.query + ' for query');
 MongoClient.connect('mongodb://' + argv.host + '/' + argv.db, function (err, db) {
     'use strict';
     if (err) {

@@ -1,16 +1,17 @@
 {
-  "name": "rmongoshell",
-  "version": "0.0.0",
-  "description": "libraries for rmongoshell R package",
-  "main": "index.js",
-  "scripts": {
-    "test": "mocha test"
-  },
-  "dependencies": {
-    "mocha": "*",
-    "mongodb": "*",
-    "yargs": "*"
-  },
-  "author": "Bill Beesley <bbeesley@williamhill.co.uk>",
-  "license": "BSD"
+    "name": "rmongoshell",
+    "version": "0.0.0",
+    "description": "libraries for rmongoshell R package",
+    "main": "index.js",
+    "scripts": {
+        "test": "mocha test"
+    },
+    "dependencies": {
+        "mocha": "*",
+        "mongodb": "*",
+        "yargs": "*",
+        "async": "*"
+    },
+    "author": "Bill Beesley <bbeesley@williamhill.co.uk>",
+    "license": "BSD"
 }
