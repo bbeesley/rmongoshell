@@ -12,7 +12,7 @@ dbSummary <- function(host, db, collection, stakeKey, winKey, numLines, mem = 2)
                   ' --db ', db,
                   ' --collection ', collection,
                   ' --stakeKey \'', stakeKey,
-                  ' --winKey \'', winKey,
+                  '\' --winKey \'', winKey,
                   '\' --numLines \'', numLines, '\'')
   response = system(paste(commandBits, collapse = ''), intern = T)
   # fromJSON(response, encoding = "UTF-8")
