@@ -1,7 +1,7 @@
 Package: rmongoshell
 Type: Package
 Title: R Wrapper for Mongo Shell
-Version: 0.0.2
+Version: 0.0.3
 Date: 2014-08-13
 Author: Bill Beesley
 Maintainer: Bill Beesley <bill@billbeesley.com>

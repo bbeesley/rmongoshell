@@ -1,3 +1,3 @@
 import('RJSONIO')
 import('parallel')
-export('dbUniques', 'dbCount', 'dbGetMatches', 'dbSummary')
+export('dbUniques', 'dbCount', 'dbGetMatches', 'dbSummary', 'dbCountWinlines')
