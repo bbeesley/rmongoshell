@@ -1,6 +1,6 @@
 {
     "name": "rmongoshell",
-    "version": "0.0.0",
+    "version": "0.0.4",
     "description": "libraries for rmongoshell R package",
     "main": "index.js",
     "scripts": {

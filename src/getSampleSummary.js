@@ -4,8 +4,9 @@ var MongoClient = require('mongodb').MongoClient,
     sample,
     response,
     exceptions = [],
-    argv = require('yargs').usage('Usage: $0 --host [string] --db [string] --collection [string] --stakeKey [string] --winKey [string] --numLines [integer]').demand(['host', 'db', 'collection', 'stakeKey', 'winKey', 'numLines']).argv,
-    stake = '$' + argv.stakeKey,
+    argv = require('yargs').usage('Usage: $0 --host [string] --db [string] --collection [string] --costKey [string] --valueKey [string] --winKey [string] --numLines [integer]').demand(['host', 'db', 'collection', 'costKey', 'valueKey', 'winKey', 'numLines']).argv,
+    cost = '$' + argv.costKey,
+    value = '$' + argv.valueKey,
     win = '$' + argv.winKey,
     lines = parseInt(argv.numLines, 10);
 MongoClient.connect('mongodb://' + argv.host + '/' + argv.db, function (err, db) {
@@ -23,11 +24,13 @@ MongoClient.connect('mongodb://' + argv.host + '/' + argv.db, function (err, db)
                     summary = sample.aggregate(
                         [{
                             $group: {
-                                _id: stake,
+                                _id: value,
                                 sampleSize: {
                                     $sum: {
                                         $cond: {
-                                            if: "$wasFree",
+                                            if: {
+                                                $eq: [ cost, 0 ]
+                                            },
                                             then: 0,
                                             else: 1
                                         }
@@ -35,7 +38,7 @@ MongoClient.connect('mongodb://' + argv.host + '/' + argv.db, function (err, db)
                                 },
                                 totalStaked: {
                                     $sum: {
-                                        $multiply: [lines, stake]
+                                        $multiply: [lines, cost]
                                     }
                                 },
                                 totalWon: {
@@ -50,26 +53,28 @@ MongoClient.connect('mongodb://' + argv.host + '/' + argv.db, function (err, db)
                                 RTP: {
                                     $divide: ["$totalWon", {
                                         $cond: {
-                                            if :{
-                                            $gt: ["$totalStaked", 0]
-                                        },
-                                        then: "$totalStaked",
-                                        else : 1
-                                    }
-                                              }]
+                                            if : {
+                                                $gt: ["$totalStaked", 0]
+                                            },
+                                            then: "$totalStaked",
+                                            else : 1
+                                        }
+                                    }]
                                 }
                             }
-                        }], function(error, results) {
+                        }],
+                        function (error, results) {
                             if (error) {
                                 console.error(error.message);
                             }
                             if (results) {
-                                results.forEach(function(el, ind, ob) {
+                                results.forEach(function (el, ind, ob) {
                                     console.log(JSON.stringify(el));
                                 });
                             }
                             process.exit();
-                        });
+                        }
+                    );
 
             }
         });
