@@ -29,17 +29,21 @@ MongoClient.connect('mongodb://' + argv.host + '/' + argv.db, function (err, db)
                 curs.toArray(function (e, arr) {
                     if (e) {
                         exceptions.push(e);
+                        console.error(JSON.stringify(exceptions));
+                        process.exit();
                     }
-                    if (arr && keys.length > 1) {
-                        arr.forEach(function (e, i, o) {
-                            console.log(JSON.stringify(e));
-                        });
-                        process.exit();
-                    } else {
-                        arr.forEach(function (e, i, o) {
-                            console.log(JSON.stringify(e[keys[0]]));
-                        });
-                        process.exit();
+                    if (arr) {
+                        if (arr && keys.length > 1) {
+                            arr.forEach(function (e, i, o) {
+                                console.log(JSON.stringify(e));
+                            });
+                            process.exit();
+                        } else {
+                            arr.forEach(function (e, i, o) {
+                                console.log(JSON.stringify(e[keys[0]]));
+                            });
+                            process.exit();
+                        }
                     }
                 });
             }

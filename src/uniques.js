@@ -19,7 +19,7 @@ MongoClient.connect('mongodb://' + argv.host + '/' + argv.db, function (err, db)
         sample.distinct(argv.property, function (e, dat) {
             if (e) {
                 exceptions.push(e);
-                console.err(JSON.stringify(exceptions));
+                console.error(JSON.stringify(exceptions));
                 process.exit();
             }
             if (dat) {

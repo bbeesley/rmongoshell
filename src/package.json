@@ -1,6 +1,6 @@
 {
   "name": "rmongoshell",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "libraries for rmongoshell R package",
   "repository": {
     "type": "git",
