@@ -11,22 +11,15 @@ MongoClient.connect('mongodb://' + argv.host + '/' + argv.db, function (err, db)
         exceptions.push(err);
     }
     if (db) {
-        db.authenticate('bill', 'test1234', function (e, ok) {
+        sample = db.collection(argv.collection);
+        sample.count(JSON.parse(argv.query), function (e, dat) {
             if (e) {
-                exceptions.push(e);
+                console.error(e.message);
+                process.exit();
             }
-            if (ok) {
-                sample = db.collection(argv.collection);
-                sample.count(JSON.parse(argv.query), function (e, dat) {
-                    if (e) {
-                        console.error(e.message);
-                        process.exit();
-                    }
-                    if (dat) {
-                        console.log(JSON.stringify(dat));
-                        process.exit();
-                    }
-                });
+            if (dat) {
+                console.log(JSON.stringify(dat));
+                process.exit();
             }
         });
     }
