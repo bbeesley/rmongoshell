@@ -15,68 +15,62 @@ MongoClient.connect('mongodb://' + argv.host + '/' + argv.db, function (err, db)
         console.error(err.message);
     }
     if (db) {
-        db.authenticate('bill', 'test1234', function (e, ok) {
-            if (e) {
-                console.error(e.message);
-            }
-            if (ok) {
-                var sample = db.collection(argv.collection),
-                    summary = sample.aggregate(
-                        [{
-                            $group: {
-                                _id: value,
-                                sampleSize: {
-                                    $sum: {
-                                        $cond: {
-                                            if: {
-                                                $eq: [ cost, 0 ]
-                                            },
-                                            then: 0,
-                                            else: 1
-                                        }
-                                    }
-                                },
-                                totalStaked: {
-                                    $sum: {
-                                        $multiply: [lines, cost]
-                                    }
-                                },
-                                totalWon: {
-                                    $sum: win
+        var sample = db.collection(argv.collection),
+            summary = sample.aggregate(
+                [{
+                    $group: {
+                        _id: value,
+                        sampleSize: {
+                            $sum: {
+                                $cond: {
+                                    if: {
+                                        $eq: [ cost, 0 ]
+                                    },
+                                    then: 0,
+                                    else: 1
                                 }
                             }
-                        }, {
-                            $project: {
-                                sampleSize: "$sampleSize",
-                                totalStaked: "$totalStaked",
-                                totalWon: "$totalWon",
-                                RTP: {
-                                    $divide: ["$totalWon", {
-                                        $cond: {
-                                            if : {
-                                                $gt: ["$totalStaked", 0]
-                                            },
-                                            then: "$totalStaked",
-                                            else : 1
-                                        }
-                                    }]
-                                }
+                        },
+                        totalStaked: {
+                            $sum: {
+                                $multiply: [lines, cost]
                             }
-                        }],
-                        function (error, results) {
-                            if (error) {
-                                console.error(error.message);
-                            }
-                            if (results) {
-                                results.forEach(function (el, ind, ob) {
-                                    console.log(JSON.stringify(el));
-                                });
-                            }
-                            process.exit();
+                        },
+                        totalWon: {
+                            $sum: win
                         }
-                    );
+                    }
+                }, {
+                    $project: {
+                        sampleSize: "$sampleSize",
+                        totalStaked: "$totalStaked",
+                        totalWon: "$totalWon",
+                        RTP: {
+                            $divide: ["$totalWon", {
+                                $cond: {
+                                    if : {
+                                        $gt: ["$totalStaked", 0]
+                                    },
+                                    then: "$totalStaked",
+                                    else : 1
+                                }
+                            }]
+                        }
+                    }
+                }],
+                function (error, results) {
+                    if (error) {
+                        console.error(error.message);
+                    }
+                    if (results) {
+                        results.forEach(function (el, ind, ob) {
+                            console.log(JSON.stringify(el));
+                        });
+                    }
+                    process.exit();
+                }
+            );
 
-            }
-        });
+
     }
 });

@@ -17,36 +17,33 @@ MongoClient.connect('mongodb://' + argv.host + '/' + argv.db, function (err, db)
         exceptions.push(err);
     }
     if (db) {
-        db.authenticate('bill', 'test1234', function (e, ok) {
+        var query = JSON.parse(argv.query),
+            sample = db.collection(argv.collection);
+        sample.find(query, {
+            fields: JSON.parse(argv.fields)
+        }, function (e, curs) {
             if (e) {
                 exceptions.push(e);
             }
-            if (ok) {
-                var query = JSON.parse(argv.query),
-                    sample = db.collection(argv.collection);
-                sample.find(query, {
-                    fields: JSON.parse(argv.fields)
-                }, function (e, curs) {
+            if (curs) {
+                curs.toArray(function (e, arr) {
                     if (e) {
                         exceptions.push(e);
+                        console.error(JSON.stringify(exceptions));
+                        process.exit();
                     }
-                    if (curs) {
-                        curs.toArray(function (e, arr) {
-                            if (e) {
-                                exceptions.push(e);
-                            }
-                            if (arr && keys.length > 1) {
-                                arr.forEach(function (e, i, o) {
-                                    console.log(JSON.stringify(e));
-                                });
-                                process.exit();
-                            } else {
-                                arr.forEach(function (e, i, o) {
-                                    console.log(JSON.stringify(e[keys[0]]));
-                                });
-                                process.exit();
-                            }
-                        });
+                    if (arr) {
+                        if (arr && keys.length > 1) {
+                            arr.forEach(function (e, i, o) {
+                                console.log(JSON.stringify(e));
+                            });
+                            process.exit();
+                        } else {
+                            arr.forEach(function (e, i, o) {
+                                console.log(JSON.stringify(e[keys[0]]));
+                            });
+                            process.exit();
+                        }
                     }
                 });
             }
