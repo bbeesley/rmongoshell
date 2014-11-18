@@ -11,11 +11,6 @@ MongoClient.connect('mongodb://' + argv.host + '/' + argv.db, function(err, db) 
         console.error(err.message);
     }
     if (db) {
-        db.authenticate('bill', 'test1234', function(e, ok) {
-            if (e) {
-                console.error(e.message);
-            }
-            if (ok) {
                 var sample = db.collection(argv.collection),
                     summary = sample.aggregate(
                         [{
@@ -56,6 +51,4 @@ MongoClient.connect('mongodb://' + argv.host + '/' + argv.db, function(err, db) 
                         });
 
             }
-        });
-    }
 });
