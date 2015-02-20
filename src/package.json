@@ -1,10 +1,10 @@
 {
   "name": "rmongoshell",
-  "version": "0.0.7",
+  "version": "0.0.10",
   "description": "libraries for rmongoshell R package",
   "repository": {
     "type": "git",
-    "url": "git://10.1.29.12/rmongoshell.git"
+    "url": "http://gitlab.williamhill-dev.local/billb/rmongoshell.git"
   },
   "main": "index.js",
   "scripts": {

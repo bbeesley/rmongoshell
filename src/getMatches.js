@@ -26,24 +26,22 @@ MongoClient.connect('mongodb://' + argv.host + '/' + argv.db, function (err, db)
                 exceptions.push(e);
             }
             if (curs) {
-                curs.toArray(function (e, arr) {
+                curs.each(function (e, doc) {
                     if (e) {
                         exceptions.push(e);
                         console.error(JSON.stringify(exceptions));
                         process.exit();
                     }
-                    if (arr) {
-                        if (arr && keys.length > 1) {
-                            arr.forEach(function (e, i, o) {
-                                console.log(JSON.stringify(e));
-                            });
-                            process.exit();
+                    if (doc) {
+                        if (keys.length > 1) {
+                            console.log(JSON.stringify(doc));
                         } else {
-                            arr.forEach(function (e, i, o) {
-                                console.log(JSON.stringify(e[keys[0]]));
-                            });
-                            process.exit();
+                            if (doc[keys[0]]) {
+                                console.log(JSON.stringify(doc[keys[0]]));
+                            }
                         }
+                    } else {
+                        process.exit();
                     }
                 });
             }
